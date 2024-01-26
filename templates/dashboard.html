@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+            padding: 50px;
+            color: #333;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        /* Add your additional styles for the dashboard here */
+
+        /* Dark Mode Styles */
+        body.dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        #posts {
+            margin: auto;
+            width: 100%;
+            border: 3px solid green;
+            padding: 10px;
+        }
+
+        body.dark h1 {
+            color: #fff;
+        }
+
+        body.dark p {
+            color: #ddd;
+        }
+
+        /* Light Mode Styles */
+        body.light {
+            background-color: #fff;
+            color: #333;
+        }
+
+        body.light h1 {
+            color: #333;
+        }
+
+        body.light p {
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Your Dashboard, {{ current_user.username }}! <a href="{{ url_for('logout') }}">logout</a></h1>
+    <p>This is your personalized dashboard. Add your content here.</p>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle">Toggle Dark Mode</button>
+    <br>
+    <h2>Create a New Post</h2>
+    <form method="POST" action="{{ url_for('dashboard') }}">
+        <label for="content">Create a new post:</label>
+        <textarea id="content" name="content" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <div id="posts">
+        <h2>All Recent Posts:</h2>
+        <ul>
+            {% for post in posts %}
+            <li>{{ post.user.username }} - {{ post.content }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- Add jQuery for simplicity -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Check dark mode preference from localStorage or set it to dark by default
+            var darkMode = localStorage.getItem('darkMode') || 'dark';
+
+            // Set the initial dark mode class
+            $('body').addClass(darkMode);
+
+            // Function to toggle dark mode
+            function toggleDarkMode() {
+                if (darkMode === 'dark') {
+                    darkMode = 'light';
+                } else {
+                    darkMode = 'dark';
+                }
+
+                // Update localStorage
+                localStorage.setItem('darkMode', darkMode);
+
+                // Toggle dark mode class
+                $('body').toggleClass('dark light');
+            }
+
+            // Toggle dark mode on button click
+            $('#darkModeToggle').on('click', function () {
+                toggleDarkMode();
+            });
+        });
+    </script>
+</body>
+
+</html>

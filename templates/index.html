@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+            color: #333;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        /* Add your additional styles for the index page here */
+
+        /* Dark Mode Styles */
+        body.dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.dark h1 {
+            color: #fff;
+        }
+
+        body.dark p {
+            color: #ddd;
+        }
+
+        /* Light Mode Styles */
+        body.light {
+            background-color: #fff;
+            color: #333;
+        }
+
+        body.light h1 {
+            color: #333;
+        }
+
+        body.light p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Social Media App</h1>
+    <p>This is a simple social media app built with Flask.</p>
+    <p>Get started by <a href="{{ url_for('register') }}">registering</a> or <a href="{{ url_for('login') }}">logging in</a>.</p>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle">Toggle Dark Mode</button>
+
+    <!-- Add jQuery for simplicity -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Check dark mode preference from localStorage or set it to dark by default
+            var darkMode = localStorage.getItem('darkMode') || 'dark';
+
+            // Set the initial dark mode class
+            $('body').addClass(darkMode);
+
+            // Function to toggle dark mode
+            function toggleDarkMode() {
+                if (darkMode === 'dark') {
+                    darkMode = 'light';
+                } else {
+                    darkMode = 'dark';
+                }
+
+                // Update localStorage
+                localStorage.setItem('darkMode', darkMode);
+
+                // Toggle dark mode class
+                $('body').toggleClass('dark light');
+            }
+
+            // Toggle dark mode on button click
+            $('#darkModeToggle').on('click', function () {
+                toggleDarkMode();
+            });
+        });
+    </script>
+</body>
+</html>

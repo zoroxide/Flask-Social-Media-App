@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+            color: #333;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        /* Add your additional styles for the register page here */
+
+        /* Dark Mode Styles */
+        body.dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.dark h2 {
+            color: #fff;
+        }
+
+        /* Light Mode Styles */
+        body.light {
+            background-color: #fff;
+            color: #333;
+        }
+
+        body.light h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Register</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li style="color: red;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="{{ url_for('login') }}">Log in here</a>.</p>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="darkModeToggle">Toggle Dark Mode</button>
+
+    <!-- Add jQuery for simplicity -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Check dark mode preference from localStorage or set it to dark by default
+            var darkMode = localStorage.getItem('darkMode') || 'dark';
+
+            // Set the initial dark mode class
+            $('body').addClass(darkMode);
+
+            // Function to toggle dark mode
+            function toggleDarkMode() {
+                if (darkMode === 'dark') {
+                    darkMode = 'light';
+                } else {
+                    darkMode = 'dark';
+                }
+
+                // Update localStorage
+                localStorage.setItem('darkMode', darkMode);
+
+                // Toggle dark mode class
+                $('body').toggleClass('dark light');
+            }
+
+            // Toggle dark mode on button click
+            $('#darkModeToggle').on('click', function () {
+                toggleDarkMode();
+            });
+        });
+    </script>
+</body>
+</html>
