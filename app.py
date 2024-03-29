@@ -4,7 +4,7 @@ from flask_sqlalchemy import *
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secretkey' # should be in .env file in production or in docker
+app.config['SECRET_KEY'] = 'key' # should be in .env file in production or in docker
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 db = SQLAlchemy(app)
