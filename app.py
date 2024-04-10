@@ -5,7 +5,7 @@ import datetime
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SECRET_KEY'] = 'key' # should be in .env file in production or in docker
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 current_time = datetime.datetime.now()
 formatted_time = current_time.strftime("%H:%M:%S")
