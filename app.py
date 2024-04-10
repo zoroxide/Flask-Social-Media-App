@@ -31,8 +31,6 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
-# Routes
-
 # Main page
 @app.route("/")
 def home():
