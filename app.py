@@ -1,11 +1,14 @@
 from flask import *
 from flask_login import *
 from flask_sqlalchemy import *
+import datetime
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+current_time = datetime.datetime.now()
+formatted_time = current_time.strftime("%H:%M:%S")
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -21,6 +24,7 @@ class Post(db.Model):
     content = db.Column(db.String(300), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('posts', lazy=True))
+    timestamp = current_time
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
